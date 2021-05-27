@@ -7,8 +7,8 @@ function BookshelfNavbar() {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link href="#home">My Library</Nav.Link>
-          <Nav.Link href="#link">Search</Nav.Link>
+          <Nav.Link href="/library">My Library</Nav.Link>
+          <Nav.Link href="/search">Search</Nav.Link>
         </Nav>
         <Button variant="success">Login / Signup</Button>
       </Navbar.Collapse>
