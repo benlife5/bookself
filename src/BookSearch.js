@@ -1,10 +1,11 @@
 import { Card, Form, Button, ListGroup } from "react-bootstrap";
 import { useState } from "react";
 import { bookSearch } from "./utils";
+import BookList from "./BookList";
 
 function BookSearch() {
   const [query, setQuery] = useState("");
-  const [books, setBooks] = useState([]);
+  const [books, setBooks] = useState();
 
   const search = (e) => {
     e.preventDefault();
@@ -12,7 +13,7 @@ function BookSearch() {
   };
 
   return (
-    <Card style={{ width: "18rem" }}>
+    <Card style={{ width: "40rem", margin: "auto" }}>
       <Card.Body>
         <Card.Title>Book Search</Card.Title>
         <Form>
@@ -28,12 +29,8 @@ function BookSearch() {
           </Button>
         </Form>
       </Card.Body>
-      <ListGroup />
-      <Card.Body>
-        {books.map((book) => (
-          <Button onClick={console.log(book)}>{book.volumeInfo.title}</Button>
-        ))}
-      </Card.Body>
+      {books && <ListGroup />}
+      {books && <BookList bookData={books} />}
     </Card>
   );
 }

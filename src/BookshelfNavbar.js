@@ -2,7 +2,7 @@ import { Navbar, Nav, Button } from "react-bootstrap";
 
 function BookshelfNavbar() {
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="light" expand="md lg">
       <Navbar.Brand href="#home">Bookshelf</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
