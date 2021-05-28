@@ -30,7 +30,7 @@ function BookSearch() {
         </Form>
       </Card.Body>
       {books && <ListGroup />}
-      {books && <BookList bookData={books} />}
+      {books && <BookList bookData={books} view="search" />}
     </Card>
   );
 }

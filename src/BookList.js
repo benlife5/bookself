@@ -1,6 +1,7 @@
 import { Button, Container, Col, Row } from "react-bootstrap";
+import { addToLibrary } from "./utils";
 
-function BookList({ bookData }) {
+function BookList({ bookData, view }) {
   return (
     <Container style={{ padding: "2%" }}>
       {bookData.map((book) => {
@@ -22,7 +23,15 @@ function BookList({ bookData }) {
               <h6>{book.volumeInfo.authors}</h6>
             </Col>
             <Col style={{ textAlign: "right" }}>
-              <Button>Add to Library</Button>
+              {view === "search" && (
+                <Button onClick={() => addToLibrary(book.id)}>Add</Button>
+              )}
+              {view === "library" && (
+                <>
+                  <Button>Edit</Button>
+                  <Button>Remove</Button>
+                </>
+              )}
             </Col>
           </Row>
         );

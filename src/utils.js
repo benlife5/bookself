@@ -1,3 +1,5 @@
+const axios = require("axios");
+
 const bookSearch = async (query) => {
   try {
     const data = await fetch("http://localhost:8080/search?q=" + query).then(
@@ -6,7 +8,7 @@ const bookSearch = async (query) => {
     return data.items;
   } catch (error) {
     console.log(error);
-    alert("Server Error");
+    alert("Connection Error (search)");
     return [];
   }
 };
@@ -20,9 +22,25 @@ const getLibrary = async (query) => {
     return data.items;
   } catch (error) {
     console.log(error);
-    alert("Server Error");
+    alert("Connection Error (get)");
     return [];
   }
 };
 
-export { bookSearch, getLibrary };
+const addToLibrary = async (bookId) => {
+  try {
+    return await axios({
+      method: "post",
+      url: "http://localhost:8080/add",
+      data: {
+        userId: "a",
+        bookId: bookId,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    alert("Connection Error (add)");
+  }
+};
+
+export { bookSearch, getLibrary, addToLibrary };

@@ -17,7 +17,7 @@ function LibraryView() {
         <Card.Title>Library</Card.Title>
       </Card.Body>
       {books && <ListGroup />}
-      {books && <BookList bookData={books} />}
+      {books && <BookList bookData={books} view="library" />}
     </Card>
   );
 }
