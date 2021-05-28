@@ -18,8 +18,9 @@ const getLibrary = async (query) => {
     const data = await fetch(
       "http://localhost:8080/library?user=" + query
     ).then((res) => res.json());
-    console.log(data);
-    return data.items;
+    let dataArray = [];
+    Object.keys(data).map((key) => dataArray.push(data[key]));
+    return dataArray;
   } catch (error) {
     console.log(error);
     alert("Connection Error (get)");

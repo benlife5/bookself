@@ -18,7 +18,7 @@ function BookList({ bookData, view }) {
                 }}
               />
             </Col>
-            <Col md="auto">
+            <Col>
               <h4>{book.volumeInfo.title}</h4>
               <h6>{book.volumeInfo.authors}</h6>
             </Col>
@@ -29,7 +29,7 @@ function BookList({ bookData, view }) {
               {view === "library" && (
                 <>
                   <Button>Edit</Button>
-                  <Button>Remove</Button>
+                  <Button style={{ marginLeft: "2%" }}>Remove</Button>
                 </>
               )}
             </Col>
