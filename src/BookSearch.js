@@ -16,6 +16,7 @@ function BookSearch() {
     <Card style={{ width: "40rem", margin: "auto" }}>
       <Card.Body>
         <Card.Title>Book Search</Card.Title>
+
         <Form>
           <Form.Group>
             <Form.Control
@@ -24,13 +25,18 @@ function BookSearch() {
               onChange={({ target: { value } }) => setQuery(value)}
             ></Form.Control>
           </Form.Group>
+
           <Button variant="primary" type="submit" onClick={search}>
             Search
           </Button>
         </Form>
       </Card.Body>
+
       {books && <ListGroup />}
-      {books && <BookList bookData={books} view="search" />}
+
+      {books && (
+        <BookList bookData={books} style={{ marginLeft: "2%" }} view="search" />
+      )}
     </Card>
   );
 }

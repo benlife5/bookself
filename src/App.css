@@ -1,3 +1,8 @@
 .btn {
   margin-right: 0.5rem !important;
 }
+
+.bookListRow {
+  display: grid;
+  grid-template-columns: 15% 60% 25%;
+}
