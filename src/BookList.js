@@ -13,7 +13,10 @@ function BookList({ bookData, view, forceUpdate }) {
       {bookData.map((book) => {
         return (
           <ListGroup>
-            <ListGroup.Item key={book.id} className="bookListRow">
+            <ListGroup.Item
+              key={book.id}
+              style={{ display: "grid", gridTemplateColumns: "15% 60% 25%" }}
+            >
               {/* Thumbnail */}
               <div style={{ textAlign: "center" }}>
                 <img
@@ -40,6 +43,7 @@ function BookList({ bookData, view, forceUpdate }) {
                   display: "flex",
                   justifyContent: "flex-end",
                   alignItems: "center",
+                  gap: "5%",
                 }}
               >
                 <Button onClick={() => setShowInfo(book)}>Info</Button>
