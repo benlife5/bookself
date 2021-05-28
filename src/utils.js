@@ -18,7 +18,6 @@ const getLibrary = async () => {
     const data = await fetch("http://localhost:8080/library?user=a").then(
       (res) => res.json()
     );
-    console.log(data);
     let dataArray = [];
     Object.keys(data).map((key) => dataArray.push(data[key]));
     return dataArray;
@@ -30,9 +29,8 @@ const getLibrary = async () => {
 };
 
 const addToLibrary = async (bookId) => {
-  console.log("ADD ", Date.now());
   try {
-    const a = await axios({
+    return axios({
       method: "post",
       url: "http://localhost:8080/add",
       data: {
@@ -40,8 +38,6 @@ const addToLibrary = async (bookId) => {
         bookId: bookId,
       },
     });
-    console.log(a);
-    return a;
   } catch (error) {
     console.log(error);
     alert("Connection Error (add)");
