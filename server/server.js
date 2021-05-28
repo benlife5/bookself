@@ -46,7 +46,7 @@ app.get("/search", async (req, res) => {
 
 app.post("/add", async (req, res) => {
   const { userId, bookId } = req.body;
-  console.log(userId, bookId);
+
   const dbLocation = db
     .collection("users")
     .doc(userId)
@@ -55,7 +55,7 @@ app.post("/add", async (req, res) => {
 
   const currentDoc = await dbLocation.get();
   if (currentDoc.exists)
-    res.send({ added: false, message: "Book already in library" });
+    res.send({ success: false, message: "Book already in library" });
 
   try {
     const book = await axios.get(
@@ -64,14 +64,41 @@ app.post("/add", async (req, res) => {
     console.log(book.data);
     await dbLocation.set(book.data);
 
-    res.send({ added: true, message: "Successfully added to library" });
+    res.send({ success: true, message: "Successfully added to library" });
   } catch (error) {
     console.log(error);
     res.send({
-      added: false,
+      success: false,
       message: "Error adding to library",
       error: JSON.stringify(error),
     });
+  }
+});
+
+app.delete("/remove", async (req, res) => {
+  const { userId, bookId } = req.body;
+
+  const dbLocation = db
+    .collection("users")
+    .doc(userId)
+    .collection("library")
+    .doc(bookId);
+
+  const currentDoc = await dbLocation.get();
+  if (!currentDoc.exists) {
+    res.send({ success: false, message: "Book is not library" });
+  } else {
+    try {
+      await dbLocation.delete();
+      res.send({ success: true, message: "Successfully deleted from library" });
+    } catch (error) {
+      console.log(error);
+      res.send({
+        success: false,
+        message: "Error removing from library",
+        error: JSON.stringify(error),
+      });
+    }
   }
 });
 
