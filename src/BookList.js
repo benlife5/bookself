@@ -1,4 +1,4 @@
-import { Card, Button, Container, Col, Row } from "react-bootstrap";
+import { Button, Container, Col, Row } from "react-bootstrap";
 
 function BookList({ bookData }) {
   return (

@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import BookshelfNavbar from "./BookshelfNavbar";
 import BookSearch from "./BookSearch";
+import LibraryView from "./LibraryView";
 import "bootstrap/dist/css/bootstrap.min.css";
 // import "./App.css";
 function App() {
@@ -10,7 +11,7 @@ function App() {
       <BookshelfNavbar />
       <Switch>
         <Route exact path="/" component={Redirect} to="/search" />
-        <Route path="/library" />
+        <Route path="/library" component={LibraryView} />
         <Route path="/search" component={BookSearch} />
       </Switch>
     </BrowserRouter>
