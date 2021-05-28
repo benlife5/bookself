@@ -74,7 +74,10 @@ function BookList({ bookData, view, forceUpdate }) {
                 </Button>
 
                 {view === "search" && (
-                  <Button onClick={() => addToLibrary(book.id)}>
+                  <Button
+                    onClick={() => addToLibrary(book.id)}
+                    variant="success"
+                  >
                     <PlusLg />
                   </Button>
                 )}
@@ -93,6 +96,7 @@ function BookList({ bookData, view, forceUpdate }) {
                       onClick={() =>
                         removeFromLibrary(book.id).then(forceUpdate(true))
                       }
+                      variant="danger"
                     >
                       <XLg />
                     </Button>
