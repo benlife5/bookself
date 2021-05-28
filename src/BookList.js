@@ -3,6 +3,7 @@ import { useState } from "react";
 import { addToLibrary, removeFromLibrary, arrayToString } from "./utils";
 import InfoPane from "./InfoPane";
 import EditPane from "./EditPane";
+import { PlusLg, InfoLg, XLg, Pencil } from "react-bootstrap-icons";
 
 function BookList({ bookData, view, forceUpdate }) {
   const [showInfo, setShowInfo] = useState(false);
@@ -69,11 +70,13 @@ function BookList({ bookData, view, forceUpdate }) {
                     setShowInfo(true);
                   }}
                 >
-                  Info
+                  <InfoLg />
                 </Button>
 
                 {view === "search" && (
-                  <Button onClick={() => addToLibrary(book.id)}>Add</Button>
+                  <Button onClick={() => addToLibrary(book.id)}>
+                    <PlusLg />
+                  </Button>
                 )}
 
                 {view === "library" && (
@@ -84,14 +87,14 @@ function BookList({ bookData, view, forceUpdate }) {
                         setShowEdit(true);
                       }}
                     >
-                      Edit
+                      <Pencil />
                     </Button>
                     <Button
                       onClick={() =>
                         removeFromLibrary(book.id).then(forceUpdate(true))
                       }
                     >
-                      Remove
+                      <XLg />
                     </Button>
                   </>
                 )}

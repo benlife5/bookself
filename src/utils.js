@@ -61,6 +61,7 @@ const removeFromLibrary = async (bookId) => {
 };
 
 const arrayToString = (array) => {
+  if (array === undefined) return "";
   let string = "";
   for (let i = 0; i < array.length; i++) {
     string += array[i];

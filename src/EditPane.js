@@ -97,6 +97,7 @@ function InfoPane(props) {
               setIndustryIdentifiers(setISBN13(industryIdentifiers, value))
             }
           ></Form.Control>
+          <br />
           <span style={{ fontWeight: "bold" }}>Description: </span>
           <div
             style={{
