@@ -10,9 +10,11 @@ function App() {
     <BrowserRouter>
       <BookshelfNavbar />
       <Switch>
-        <Route exact path="/" component={Redirect} to="/search" />
-        <Route path="/library" component={LibraryView} />
-        <Route path="/search" component={BookSearch} />
+        <Route exact path="/">
+          <Redirect to="/search" />
+        </Route>
+        <Route exact path="/library" component={LibraryView} />
+        <Route exact path="/search" component={BookSearch} />
       </Switch>
     </BrowserRouter>
   );

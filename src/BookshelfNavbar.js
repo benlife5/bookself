@@ -1,4 +1,5 @@
 import { Navbar, Nav, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function BookshelfNavbar() {
   return (
@@ -7,8 +8,12 @@ function BookshelfNavbar() {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link href="/library">My Library</Nav.Link>
-          <Nav.Link href="/search">Search</Nav.Link>
+          <Nav.Link to="/library" as={Link}>
+            My Library
+          </Nav.Link>
+          <Nav.Link to="/search" as={Link}>
+            Search
+          </Nav.Link>
         </Nav>
         <Button variant="success">Login / Signup</Button>
       </Navbar.Collapse>
