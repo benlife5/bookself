@@ -102,6 +102,33 @@ app.delete("/remove", async (req, res) => {
   }
 });
 
+app.put("/edit", async (req, res) => {
+  const { userId, bookId, bookData } = req.body;
+
+  const dbLocation = db
+    .collection("users")
+    .doc(userId)
+    .collection("library")
+    .doc(bookId);
+
+  const currentDoc = await dbLocation.get();
+  if (!currentDoc.exists) {
+    res.send({ success: false, message: "Book is not library" });
+  } else {
+    try {
+      await dbLocation.set(bookData);
+      res.send({ success: true, message: "Successfully updated" });
+    } catch (error) {
+      console.log(error);
+      res.send({
+        success: false,
+        message: "Error updating",
+        error: JSON.stringify(error),
+      });
+    }
+  }
+});
+
 app.listen(PORT, () => {
   console.log("Bookshelf Server Running on port " + PORT);
 });
