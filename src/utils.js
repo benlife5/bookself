@@ -45,7 +45,6 @@ const addToLibrary = async (bookId) => {
 };
 
 const removeFromLibrary = async (bookId) => {
-  console.log("Removing");
   try {
     return axios({
       method: "delete",
@@ -61,4 +60,58 @@ const removeFromLibrary = async (bookId) => {
   }
 };
 
-export { bookSearch, getLibrary, addToLibrary, removeFromLibrary };
+const arrayToString = (array) => {
+  let string = "";
+  for (let i = 0; i < array.length; i++) {
+    string += array[i];
+    string += ", ";
+  }
+  return string.slice(0, -2);
+};
+
+const stringToArray = (string) => {
+  return string.split(", ");
+};
+
+const getISBN13 = (industryIdentifiers) => {
+  industryIdentifiers = industryIdentifiers.map((id) => {
+    if (id.type === "ISBN_13") return id.identifier;
+    return null;
+  });
+  const a = industryIdentifiers.filter((element) => element != null)[0];
+  return a;
+};
+
+const setISBN13 = (industryIdentifiers, ISBN13) => {
+  return industryIdentifiers.map((id) => {
+    if (id.type === "ISBN_13") {
+      id.identifier = ISBN13;
+    }
+    return id;
+  });
+};
+
+const editBook = async (bookId, bookData) => {
+  try {
+    return axios.put("http://localhost:8080/edit", {
+      userId: "a",
+      bookId: bookId,
+      bookData: bookData,
+    });
+  } catch (error) {
+    console.log(error);
+    alert("Connection Error (add)");
+  }
+};
+
+export {
+  bookSearch,
+  getLibrary,
+  addToLibrary,
+  removeFromLibrary,
+  editBook,
+  stringToArray,
+  arrayToString,
+  getISBN13,
+  setISBN13,
+};

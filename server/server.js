@@ -37,7 +37,6 @@ app.get("/search", async (req, res) => {
         },
       }
     );
-    console.log(results.data);
     res.send(results.data);
   } catch (e) {
     res.send(e);
@@ -54,24 +53,24 @@ app.post("/add", async (req, res) => {
     .doc(bookId);
 
   const currentDoc = await dbLocation.get();
-  if (currentDoc.exists)
+  if (currentDoc.exists) {
     res.send({ success: false, message: "Book already in library" });
+  } else {
+    try {
+      const book = await axios.get(
+        "https://www.googleapis.com/books/v1/volumes/" + bookId
+      );
+      await dbLocation.set(book.data);
 
-  try {
-    const book = await axios.get(
-      "https://www.googleapis.com/books/v1/volumes/" + bookId
-    );
-    console.log(book.data);
-    await dbLocation.set(book.data);
-
-    res.send({ success: true, message: "Successfully added to library" });
-  } catch (error) {
-    console.log(error);
-    res.send({
-      success: false,
-      message: "Error adding to library",
-      error: JSON.stringify(error),
-    });
+      res.send({ success: true, message: "Successfully added to library" });
+    } catch (error) {
+      console.log(error);
+      res.send({
+        success: false,
+        message: "Error adding to library",
+        error: JSON.stringify(error),
+      });
+    }
   }
 });
 
@@ -116,7 +115,7 @@ app.put("/edit", async (req, res) => {
     res.send({ success: false, message: "Book is not library" });
   } else {
     try {
-      await dbLocation.set(bookData);
+      await dbLocation.set(bookData, { merge: true });
       res.send({ success: true, message: "Successfully updated" });
     } catch (error) {
       console.log(error);

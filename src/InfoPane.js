@@ -1,11 +1,8 @@
 import { Modal, Button } from "react-bootstrap";
-const parser = new DOMParser();
+import { arrayToString } from "./utils";
 
 function InfoPane(props) {
-  const book = props.show;
-  console.log(
-    parser.parseFromString(book.volumeInfo.description, "text/html").body
-  );
+  const book = props.book.volumeInfo;
   return (
     <Modal
       {...props}
@@ -20,21 +17,22 @@ function InfoPane(props) {
       </Modal.Header>
       <Modal.Body>
         <span style={{ fontWeight: "bold" }}>Title: </span>
-        {book.volumeInfo.title} <br />
+        {book.title} <br />
         <span style={{ fontWeight: "bold" }}>Authors: </span>
-        {book.volumeInfo.authors} <br />
+        {arrayToString(book.authors)} <br />
         <span style={{ fontWeight: "bold" }}>Date Published: </span>
-        {book.volumeInfo.publishedDate} <br />
+        {book.publishedDate} <br />
         <span style={{ fontWeight: "bold" }}>Pages: </span>
-        {book.volumeInfo.pageCount} <br />
+        {book.pageCount} <br />
         <span style={{ fontWeight: "bold" }}>Type: </span>
-        {book.volumeInfo.categories} <br />
+        {book.categories} <br />
         <span style={{ fontWeight: "bold" }}>Average Rating: </span>
-        {book.volumeInfo.averageRating} <br />
-        <span style={{ fontWeight: "bold" }}>ISBN: </span>
-        {book.volumeInfo.industryIdentifiers.map(
-          (id) => id.type + ": " + id.identifier + " "
-        )}{" "}
+        {book.averageRating} <br />
+        <span style={{ fontWeight: "bold" }}>ISBN-13: </span>
+        {book.industryIdentifiers.map((id) => {
+          if (id.type === "ISBN_13") return id.identifier;
+          return null;
+        })}
         <br />
         <span style={{ fontWeight: "bold" }}>Description: </span>
         <div
@@ -43,15 +41,10 @@ function InfoPane(props) {
             height: "10em",
           }}
         >
-          {
-            <span
-              dangerouslySetInnerHTML={{ __html: book.volumeInfo.description }}
-            ></span>
-          }
+          {<span dangerouslySetInnerHTML={{ __html: book.description }}></span>}
           <br />
         </div>
         <br /> <br />
-        {/* <p>{JSON.stringify(book.volumeInfo)}</p> */}
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Close</Button>
