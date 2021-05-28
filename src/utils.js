@@ -44,4 +44,21 @@ const addToLibrary = async (bookId) => {
   }
 };
 
-export { bookSearch, getLibrary, addToLibrary };
+const removeFromLibrary = async (bookId) => {
+  console.log("Removing");
+  try {
+    return axios({
+      method: "delete",
+      url: "http://localhost:8080/remove",
+      data: {
+        userId: "a",
+        bookId: bookId,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    alert("Connection Error (add)");
+  }
+};
+
+export { bookSearch, getLibrary, addToLibrary, removeFromLibrary };

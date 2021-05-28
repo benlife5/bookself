@@ -1,7 +1,7 @@
 import { Button, Container, Col, Row } from "react-bootstrap";
-import { addToLibrary } from "./utils";
+import { addToLibrary, removeFromLibrary } from "./utils";
 
-function BookList({ bookData, view }) {
+function BookList({ bookData, view, forceUpdate }) {
   return (
     <Container style={{ padding: "2%" }}>
       {bookData.map((book) => {
@@ -29,7 +29,14 @@ function BookList({ bookData, view }) {
               {view === "library" && (
                 <>
                   <Button>Edit</Button>
-                  <Button style={{ marginLeft: "2%" }}>Remove</Button>
+                  <Button
+                    onClick={() => {
+                      removeFromLibrary(book.id).then(forceUpdate(true));
+                    }}
+                    style={{ marginLeft: "2%" }}
+                  >
+                    Remove
+                  </Button>
                 </>
               )}
             </Col>
