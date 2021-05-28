@@ -1,14 +1,26 @@
 import { Button, ListGroup } from "react-bootstrap";
-import { useState } from "react";
-import { addToLibrary, removeFromLibrary, arrayToString } from "./utils";
+import { useState, useEffect } from "react";
+import {
+  addToLibrary,
+  removeFromLibrary,
+  arrayToString,
+  bookInLibrary,
+  getLibrary,
+} from "./utils";
 import InfoPane from "./InfoPane";
 import EditPane from "./EditPane";
 import { PlusLg, InfoLg, XLg, Pencil } from "react-bootstrap-icons";
 
 function BookList({ bookData, view, forceUpdate }) {
   const [showInfo, setShowInfo] = useState(false);
-  const [selectedBook, setSelectedBook] = useState(null);
+  const [selectedBook, setSelectedBook] = useState();
   const [showEdit, setShowEdit] = useState(false);
+  const [library, setLibrary] = useState();
+
+  useEffect(() => {
+    getLibrary().then((data) => setLibrary(data));
+  });
+
   return (
     <div className="bookList">
       {showInfo && (
@@ -37,14 +49,16 @@ function BookList({ bookData, view, forceUpdate }) {
             >
               {/* Thumbnail */}
               <div style={{ textAlign: "center" }}>
-                <img
-                  src={book.volumeInfo.imageLinks.thumbnail}
-                  alt="Cover"
-                  style={{
-                    objectFit: "contain",
-                    maxHeight: "5em",
-                  }}
-                />
+                {book.volumeInfo.imageLinks !== undefined && (
+                  <img
+                    src={book.volumeInfo.imageLinks.thumbnail}
+                    alt="Cover"
+                    style={{
+                      objectFit: "contain",
+                      maxHeight: "5em",
+                    }}
+                  />
+                )}
               </div>
 
               {/* Title + Author */}
@@ -73,7 +87,18 @@ function BookList({ bookData, view, forceUpdate }) {
                   <InfoLg />
                 </Button>
 
-                {view === "search" && (
+                {view === "library" && (
+                  <Button
+                    onClick={() => {
+                      setSelectedBook(book);
+                      setShowEdit(true);
+                    }}
+                  >
+                    <Pencil />
+                  </Button>
+                )}
+
+                {!bookInLibrary(book.id, library) && (
                   <Button
                     onClick={() => addToLibrary(book.id)}
                     variant="success"
@@ -82,25 +107,15 @@ function BookList({ bookData, view, forceUpdate }) {
                   </Button>
                 )}
 
-                {view === "library" && (
-                  <>
-                    <Button
-                      onClick={() => {
-                        setSelectedBook(book);
-                        setShowEdit(true);
-                      }}
-                    >
-                      <Pencil />
-                    </Button>
-                    <Button
-                      onClick={() =>
-                        removeFromLibrary(book.id).then(forceUpdate(true))
-                      }
-                      variant="danger"
-                    >
-                      <XLg />
-                    </Button>
-                  </>
+                {bookInLibrary(book.id, library) && (
+                  <Button
+                    onClick={() =>
+                      removeFromLibrary(book.id).then(forceUpdate(true))
+                    }
+                    variant="danger"
+                  >
+                    <XLg />
+                  </Button>
                 )}
               </div>
             </ListGroup.Item>

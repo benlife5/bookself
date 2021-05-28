@@ -13,11 +13,12 @@ const bookSearch = async (query) => {
   }
 };
 
-const getLibrary = async (query) => {
+const getLibrary = async () => {
   try {
-    const data = await fetch(
-      "http://localhost:8080/library?user=" + query
-    ).then((res) => res.json());
+    const data = await fetch("http://localhost:8080/library?user=a").then(
+      (res) => res.json()
+    );
+    console.log(data);
     let dataArray = [];
     Object.keys(data).map((key) => dataArray.push(data[key]));
     return dataArray;
@@ -29,8 +30,9 @@ const getLibrary = async (query) => {
 };
 
 const addToLibrary = async (bookId) => {
+  console.log("ADD ", Date.now());
   try {
-    return await axios({
+    const a = await axios({
       method: "post",
       url: "http://localhost:8080/add",
       data: {
@@ -38,6 +40,8 @@ const addToLibrary = async (bookId) => {
         bookId: bookId,
       },
     });
+    console.log(a);
+    return a;
   } catch (error) {
     console.log(error);
     alert("Connection Error (add)");
@@ -105,6 +109,14 @@ const editBook = async (bookId, bookData) => {
   }
 };
 
+const bookInLibrary = (bookId, library) => {
+  if (!library) return false;
+  for (let i = 0; i < library.length; i++) {
+    if (library[i].id === bookId) return true;
+  }
+  return false;
+};
+
 export {
   bookSearch,
   getLibrary,
@@ -115,4 +127,5 @@ export {
   arrayToString,
   getISBN13,
   setISBN13,
+  bookInLibrary,
 };

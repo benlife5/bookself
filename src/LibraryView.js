@@ -8,7 +8,7 @@ function LibraryView() {
   const [update, forceUpdate] = useState(false);
 
   useEffect(() => {
-    getLibrary("a").then((data) => setBooks(data));
+    getLibrary().then((data) => setBooks(data));
     forceUpdate(false);
   }, [update]);
 
