@@ -1,9 +1,15 @@
 import { Button, Container, Col, Row } from "react-bootstrap";
+import { useState } from "react";
 import { addToLibrary, removeFromLibrary } from "./utils";
+import InfoPane from "./InfoPane";
 
 function BookList({ bookData, view, forceUpdate }) {
+  const [showInfo, setShowInfo] = useState(false);
   return (
     <Container style={{ padding: "2%" }}>
+      {showInfo && (
+        <InfoPane show={showInfo} onHide={() => setShowInfo(false)} />
+      )}
       {bookData.map((book) => {
         return (
           <Row key={book.id} style={{ marginBottom: "1%" }}>
@@ -23,6 +29,7 @@ function BookList({ bookData, view, forceUpdate }) {
               <h6>{book.volumeInfo.authors}</h6>
             </Col>
             <Col style={{ textAlign: "right" }}>
+              <Button onClick={() => setShowInfo(book)}>Info</Button>
               {view === "search" && (
                 <Button onClick={() => addToLibrary(book.id)}>Add</Button>
               )}
