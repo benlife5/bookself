@@ -1,14 +1,16 @@
 import { Modal, Button, Form } from "react-bootstrap";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   stringToArray,
   arrayToString,
   getISBN13,
   setISBN13,
   editBook,
+  getLibrary,
 } from "./utils";
 import SaveIcon from "@material-ui/icons/Save";
 import CloseIcon from "@material-ui/icons/Close";
+import { LibraryContext } from "./LibraryContext";
 
 function InfoPane(props) {
   const book = props.book.volumeInfo;
@@ -23,6 +25,7 @@ function InfoPane(props) {
     book.industryIdentifiers
   );
   const [description, setDescription] = useState(book.description);
+  const { setLibrary } = useContext(LibraryContext);
 
   const save = () => {
     const newInfo = {
@@ -37,7 +40,10 @@ function InfoPane(props) {
         description,
       },
     };
-    editBook(props.book.id, newInfo).then(props.onHide);
+    editBook(props.book.id, newInfo).then(() => {
+      getLibrary().then((library) => setLibrary(library));
+      props.onHide();
+    });
   };
 
   return (

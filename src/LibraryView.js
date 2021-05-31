@@ -1,10 +1,19 @@
 import { Card, ListGroup } from "react-bootstrap";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import BookList from "./BookList";
 import { LibraryContext } from "./LibraryContext";
+import { getLibrary } from "./utils";
 
 function LibraryView() {
-  const { library } = useContext(LibraryContext);
+  const { library, setLibrary } = useContext(LibraryContext);
+  useEffect(() => {
+    console.log("here");
+    // getLibrary().then((library) => {
+    //   console.log(library);
+    //   setLibrary(library);
+    // });
+  }, []);
+  // console.log(getLibrary());
 
   return (
     <Card style={{ width: "40rem", margin: "auto" }}>
@@ -12,8 +21,12 @@ function LibraryView() {
         <Card.Title>Library</Card.Title>
       </Card.Body>
       <ListGroup />
-      {library.length > 0 && <BookList bookData={library} view="library" />}
-      {library.length === 0 && <Card.Body>Add books to get started!</Card.Body>}
+      {library && library.length > 0 && (
+        <BookList bookData={library} view="library" />
+      )}
+      {library && library.length === 0 && (
+        <Card.Body>Add books to get started!</Card.Body>
+      )}
     </Card>
   );
 }

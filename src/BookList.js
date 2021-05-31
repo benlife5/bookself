@@ -14,7 +14,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import AddIcon from "@material-ui/icons/Add";
 import { LibraryContext } from "./LibraryContext";
 
-function BookList({ bookData, view, forceUpdate }) {
+function BookList({ bookData, view }) {
   const [showInfo, setShowInfo] = useState(false);
   const [selectedBook, setSelectedBook] = useState();
   const [showEdit, setShowEdit] = useState(false);
@@ -35,7 +35,6 @@ function BookList({ bookData, view, forceUpdate }) {
           book={selectedBook}
           onHide={() => {
             setShowEdit(false);
-            forceUpdate(true);
           }}
         />
       )}

@@ -9,7 +9,7 @@ app.use(cors());
 app.use(express.json());
 const PORT = 8080;
 let numRequests = 0;
-const QUOTA = 100;
+const QUOTA = 50;
 
 const printError = (error) => {
   console.log();
@@ -18,7 +18,6 @@ const printError = (error) => {
 };
 
 const getLimits = () => {
-  console.log("REQUESTED LIBRARY");
   numRequests++;
   if (numRequests >= QUOTA) {
     throw Error("QUOTA EXCEEDED");
