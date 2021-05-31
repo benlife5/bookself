@@ -7,6 +7,8 @@ import {
   setISBN13,
   editBook,
 } from "./utils";
+import SaveIcon from "@material-ui/icons/Save";
+import CloseIcon from "@material-ui/icons/Close";
 
 function InfoPane(props) {
   const book = props.book.volumeInfo;
@@ -45,7 +47,7 @@ function InfoPane(props) {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Header closeButton>
+      <Modal.Header>
         <Modal.Title id="contained-modal-title-vcenter">
           Edit Book Details
         </Modal.Title>
@@ -119,8 +121,12 @@ function InfoPane(props) {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={props.onHide}>Cancel</Button>
-        <Button onClick={save}>Save</Button>
+        <Button onClick={props.onHide} variant="danger">
+          <CloseIcon />
+        </Button>
+        <Button onClick={save} variant="success">
+          <SaveIcon />
+        </Button>
       </Modal.Footer>
     </Modal>
   );

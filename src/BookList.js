@@ -9,7 +9,10 @@ import {
 } from "./utils";
 import InfoPane from "./InfoPane";
 import EditPane from "./EditPane";
-import { PlusLg, InfoLg, XLg, Pencil } from "react-bootstrap-icons";
+import InfoIcon from "@material-ui/icons/Info";
+import EditIcon from "@material-ui/icons/Edit";
+import CloseIcon from "@material-ui/icons/Close";
+import AddIcon from "@material-ui/icons/Add";
 
 function BookList({ bookData, view, forceUpdate }) {
   const [showInfo, setShowInfo] = useState(false);
@@ -84,7 +87,7 @@ function BookList({ bookData, view, forceUpdate }) {
                     setShowInfo(true);
                   }}
                 >
-                  <InfoLg />
+                  <InfoIcon />
                 </Button>
 
                 {view === "library" && (
@@ -94,7 +97,7 @@ function BookList({ bookData, view, forceUpdate }) {
                       setShowEdit(true);
                     }}
                   >
-                    <Pencil />
+                    <EditIcon />
                   </Button>
                 )}
 
@@ -103,7 +106,7 @@ function BookList({ bookData, view, forceUpdate }) {
                     onClick={() => addToLibrary(book.id)}
                     variant="success"
                   >
-                    <PlusLg />
+                    <AddIcon />
                   </Button>
                 )}
 
@@ -114,7 +117,7 @@ function BookList({ bookData, view, forceUpdate }) {
                     }
                     variant="danger"
                   >
-                    <XLg />
+                    <CloseIcon />
                   </Button>
                 )}
               </div>

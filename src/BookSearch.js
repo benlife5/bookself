@@ -1,7 +1,8 @@
-import { Card, Form, Button, ListGroup } from "react-bootstrap";
+import { Card, Form, Button, ListGroup, Col } from "react-bootstrap";
 import { useState } from "react";
 import { bookSearch } from "./utils";
 import BookList from "./BookList";
+import SearchIcon from "@material-ui/icons/Search";
 
 function BookSearch() {
   const [query, setQuery] = useState("");
@@ -18,17 +19,20 @@ function BookSearch() {
         <Card.Title>Book Search</Card.Title>
 
         <Form>
-          <Form.Group>
-            <Form.Control
-              placeholder="Keywords"
-              value={query}
-              onChange={({ target: { value } }) => setQuery(value)}
-            ></Form.Control>
-          </Form.Group>
-
-          <Button variant="primary" type="submit" onClick={search}>
-            Search
-          </Button>
+          <Form.Row>
+            <Col>
+              <Form.Control
+                placeholder="Keywords"
+                value={query}
+                onChange={({ target: { value } }) => setQuery(value)}
+              ></Form.Control>
+            </Col>
+            <Col md="auto">
+              <Button variant="primary" type="submit" onClick={search}>
+                <SearchIcon />
+              </Button>
+            </Col>
+          </Form.Row>
         </Form>
       </Card.Body>
 

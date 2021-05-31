@@ -1,4 +1,4 @@
-import { Modal, Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import { arrayToString } from "./utils";
 
 function InfoPane(props) {
@@ -46,9 +46,6 @@ function InfoPane(props) {
         </div>
         <br /> <br />
       </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
-      </Modal.Footer>
     </Modal>
   );
 }
