@@ -1,11 +1,18 @@
-import React from "react";
+import { useContext, useEffect } from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import BookshelfNavbar from "./BookshelfNavbar";
 import BookSearch from "./BookSearch";
 import LibraryView from "./LibraryView";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { LibraryContext } from "./LibraryContext";
+import { getLibrary } from "./utils";
 
 function App() {
+  const { setLibrary } = useContext(LibraryContext);
+  useEffect(() => {
+    setLibrary(getLibrary());
+  }, [setLibrary]);
+
   return (
     <BrowserRouter>
       <BookshelfNavbar />

@@ -1,5 +1,5 @@
 import { Button, ListGroup } from "react-bootstrap";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import {
   addToLibrary,
   removeFromLibrary,
@@ -13,16 +13,18 @@ import InfoIcon from "@material-ui/icons/Info";
 import EditIcon from "@material-ui/icons/Edit";
 import CloseIcon from "@material-ui/icons/Close";
 import AddIcon from "@material-ui/icons/Add";
+import { LibraryContext } from "./LibraryContext";
 
 function BookList({ bookData, view, forceUpdate }) {
   const [showInfo, setShowInfo] = useState(false);
   const [selectedBook, setSelectedBook] = useState();
   const [showEdit, setShowEdit] = useState(false);
-  const [library, setLibrary] = useState();
+  const { library } = useContext(LibraryContext);
+  // const [library, setLibrary] = useState();
 
-  useEffect(() => {
-    getLibrary().then((data) => setLibrary(data));
-  });
+  // useEffect(() => {
+  //   getLibrary().then((data) => setLibrary(data));
+  // });
 
   return (
     <div className="bookList">
