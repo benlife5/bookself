@@ -9,7 +9,7 @@ app.use(cors());
 app.use(express.json());
 const PORT = 8080;
 let numRequests = 0;
-const QUOTA = 10;
+const QUOTA = 100;
 
 const printError = (error) => {
   console.log();

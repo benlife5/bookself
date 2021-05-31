@@ -1,16 +1,10 @@
 import { Card, ListGroup } from "react-bootstrap";
-import { useState, useEffect } from "react";
-import { getLibrary } from "./utils";
+import { useContext } from "react";
 import BookList from "./BookList";
+import { LibraryContext } from "./LibraryContext";
 
 function LibraryView() {
-  const [books, setBooks] = useState([]);
-  const [update, forceUpdate] = useState(false);
-
-  useEffect(() => {
-    getLibrary().then((data) => setBooks(data));
-    forceUpdate(false);
-  }, [update]);
+  const { library } = useContext(LibraryContext);
 
   return (
     <Card style={{ width: "40rem", margin: "auto" }}>
@@ -18,10 +12,8 @@ function LibraryView() {
         <Card.Title>Library</Card.Title>
       </Card.Body>
       <ListGroup />
-      {books.length > 0 && (
-        <BookList bookData={books} view="library" forceUpdate={forceUpdate} />
-      )}
-      {books.length === 0 && <Card.Body>Add books to get started!</Card.Body>}
+      {library.length > 0 && <BookList bookData={library} view="library" />}
+      {library.length === 0 && <Card.Body>Add books to get started!</Card.Body>}
     </Card>
   );
 }

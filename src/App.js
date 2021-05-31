@@ -10,7 +10,7 @@ import { getLibrary } from "./utils";
 function App() {
   const { setLibrary } = useContext(LibraryContext);
   useEffect(() => {
-    setLibrary(getLibrary());
+    getLibrary().then((library) => setLibrary(library));
   }, [setLibrary]);
 
   return (

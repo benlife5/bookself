@@ -1,11 +1,10 @@
 import { Button, ListGroup } from "react-bootstrap";
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import {
   addToLibrary,
   removeFromLibrary,
   arrayToString,
   bookInLibrary,
-  getLibrary,
 } from "./utils";
 import InfoPane from "./InfoPane";
 import EditPane from "./EditPane";
@@ -19,12 +18,7 @@ function BookList({ bookData, view, forceUpdate }) {
   const [showInfo, setShowInfo] = useState(false);
   const [selectedBook, setSelectedBook] = useState();
   const [showEdit, setShowEdit] = useState(false);
-  const { library } = useContext(LibraryContext);
-  // const [library, setLibrary] = useState();
-
-  // useEffect(() => {
-  //   getLibrary().then((data) => setLibrary(data));
-  // });
+  const { library, setLibrary } = useContext(LibraryContext);
 
   return (
     <div className="bookList">
@@ -105,7 +99,11 @@ function BookList({ bookData, view, forceUpdate }) {
 
                 {!bookInLibrary(book.id, library) && (
                   <Button
-                    onClick={() => addToLibrary(book.id)}
+                    onClick={() =>
+                      addToLibrary(book.id).then(
+                        setLibrary((library) => [...library, book])
+                      )
+                    }
                     variant="success"
                   >
                     <AddIcon />
@@ -115,7 +113,11 @@ function BookList({ bookData, view, forceUpdate }) {
                 {bookInLibrary(book.id, library) && (
                   <Button
                     onClick={() =>
-                      removeFromLibrary(book.id).then(forceUpdate(true))
+                      removeFromLibrary(book.id).then(() => {
+                        setLibrary(
+                          library.filter((item) => item.id !== book.id)
+                        );
+                      })
                     }
                     variant="danger"
                   >
