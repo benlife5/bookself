@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function BookshelfNavbar() {
   return (
     <Navbar bg="light" expand="md lg" style={{ marginBottom: "1em" }}>
-      <Navbar.Brand href="#home">Bookshelf</Navbar.Brand>
+      <Navbar.Brand>Bookshelf</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">

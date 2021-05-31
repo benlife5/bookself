@@ -1,19 +1,10 @@
 import { Card, ListGroup } from "react-bootstrap";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import BookList from "./BookList";
 import { LibraryContext } from "./LibraryContext";
-import { getLibrary } from "./utils";
 
 function LibraryView() {
-  const { library, setLibrary } = useContext(LibraryContext);
-  useEffect(() => {
-    console.log("here");
-    // getLibrary().then((library) => {
-    //   console.log(library);
-    //   setLibrary(library);
-    // });
-  }, []);
-  // console.log(getLibrary());
+  const { library } = useContext(LibraryContext);
 
   return (
     <Card style={{ width: "40rem", margin: "auto" }}>
